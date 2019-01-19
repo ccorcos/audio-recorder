@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+brew install sox
+brew cask install dropbox
+
+echo "1. set up dropbox"
+echo "2. set up your audio input"
