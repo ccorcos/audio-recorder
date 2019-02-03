@@ -45,7 +45,7 @@ class Recorder:
             GPIO.output(18, i % 2 == 0)
             time.sleep(0.3)
 
-        wait()
+        self.wait()
 
 recorder = Recorder()
 recorder.wait()
