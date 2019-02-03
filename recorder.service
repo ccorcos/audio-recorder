@@ -3,7 +3,7 @@ Description=Record Audio
 After=multi-user.target
 
 [Service]
-ExecStart=/usr/bin/python /home/pi/audio-recorder/main.py >> /home/pi/audio-recorder/log.txt
+ExecStart=/bin/bash -c '/usr/bin/python /home/pi/audio-recorder/main.py >> /home/pi/audio-recorder/log.txt 2>&1'
 
 [Install]
 WantedBy=multi-user.target
