@@ -49,8 +49,7 @@ class Recorder:
     def record(self):
         fileName = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".mp3"
         print "Recording " + fileName
-        
-        cmd = "arecord --quiet --device plughw:USB --format cd " + fileName
+        cmd = "arecord --quiet --device plughw:USB --format cd -t raw | lame -x – " + fileName
         process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
         while True:
