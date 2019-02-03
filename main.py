@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import datetime
 import time
 import subprocess
+import signal
 import os
 
 # Change directory to the current file.
@@ -50,7 +51,9 @@ class Recorder:
         fileName = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".mp3"
         print "Recording " + fileName
         cmd = "arecord --quiet --device plughw:USB --format cd | lame -x - " + fileName
-        process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
+
+        # https://stackoverflow.com/a/4791612/1191551
+        process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid) 
 
         while True:
             if GPIO.input(25):
@@ -59,8 +62,7 @@ class Recorder:
             else:
                 break
 
-        process.kill()
-
+        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
         
         blink()
         ledOn()
