@@ -11,6 +11,7 @@ GPIO.setup(25, GPIO.IN)
 
 class Recorder:    
     def wait(self):
+        print "Waiting..."
         while True:
             if GPIO.input(25):
                 time.sleep(0.2)
@@ -19,6 +20,8 @@ class Recorder:
 
     def record(self):
         fileName = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S") + ".mp3"
+        print "Recording " + fileName
+        
         cmd = "arecord --quiet --device plughw:USB --format cd " + fileName
         process = subprocess.Popen("exec " + cmd, stdout=subprocess.PIPE, shell=True)
 
@@ -29,8 +32,9 @@ class Recorder:
                 break
 
         GPIO.output(18, False)
-        p.kill()
+        process.kill()
         
+        print "Uploading " + fileName
         os.system("./dropbox_uploader.sh upload " + fileName + " " + fileName)
 
         for i in range(6):
