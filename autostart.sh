@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo cp recorder.service /lib/systemd/system/recorder.service
+sudo cp -f recorder.service /lib/systemd/system/recorder.service
 sudo systemctl daemon-reload
 sudo systemctl enable recorder.service
 
