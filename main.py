@@ -33,7 +33,7 @@ class Recorder:
         os.system("./dropbox_uploader.sh upload " + fileName + " " + fileName)
 
         for i in range(6):
-            GPIO.output(18, i % 2 === 0)
+            GPIO.output(18, i % 2 == 0)
             time.sleep(0.3)
 
         wait()
