@@ -12,7 +12,7 @@ GPIO.setup(25, GPIO.IN)
 class Recorder:    
     def wait(self):
         print "Waiting..."
-        GPIO.output(18, False)
+        GPIO.output(18, True)
         while True:
             if GPIO.input(25):
                 time.sleep(0.2)
@@ -30,21 +30,36 @@ class Recorder:
 
         while True:
             if GPIO.input(25):
-                GPIO.output(18, True)
+                GPIO.output(18, False)
                 time.sleep(0.2)
             else:
                 break
 
-        GPIO.output(18, False)
         process.kill()
+
+        # Blink off twice.
+        GPIO.output(18, True)
+        time.sleep(0.3)
+        GPIO.output(18, False)
+        time.sleep(0.3)
+        GPIO.output(18, True)
+        time.sleep(0.3)
+        GPIO.output(18, False)
         
         print "Uploading " + fileName
         os.system("./dropbox_uploader.sh upload " + fileName + " " + fileName)
 
-        for i in range(6):
-            GPIO.output(18, i % 2 == 0)
-            time.sleep(0.3)
-
+        # Blink off thrice.
+        GPIO.output(18, True)
+        time.sleep(0.3)
+        GPIO.output(18, False)
+        time.sleep(0.3)
+        GPIO.output(18, True)
+        time.sleep(0.3)
+        GPIO.output(18, False)
+        time.sleep(0.3)
+        GPIO.output(18, True)
+        
         self.wait()
 
 recorder = Recorder()
