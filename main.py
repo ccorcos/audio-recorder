@@ -12,12 +12,12 @@ GPIO.setup(25, GPIO.IN)
 class Recorder:    
     def wait(self):
         print "Waiting..."
+        GPIO.output(18, False)
         while True:
             if GPIO.input(25):
                 time.sleep(0.2)
                 break
             else:
-                GPIO.output(18, False)
                 time.sleep(0.2)
         self.record()
 
