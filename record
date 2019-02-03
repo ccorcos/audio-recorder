@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e;
-
-DATE=`date '+%Y-%m-%d-%H:%M:%S'`;
-FILE="$DATE.mp3";
-
-arecord --quiet --device plughw:USB --format cd $FILE;
-./dropbox_uploader.sh upload $FILE $FILE;
