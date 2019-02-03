@@ -22,13 +22,17 @@ def ledOff():
 
 def blink():
     ledOn()
-    time.sleep(0.2)
+    time.sleep(0.1)
     ledOff()
-    time.sleep(0.2)
+    time.sleep(0.1)
     ledOn()
-    time.sleep(0.2)
+    time.sleep(0.1)
     ledOff()
-    time.sleep(0.2)
+    time.sleep(0.1)
+    ledOn()
+    time.sleep(0.1)
+    ledOff()
+    time.sleep(0.1)
 
 class Recorder:    
     def wait(self):
@@ -60,15 +64,18 @@ class Recorder:
 
         
         blink()
+        ledOn()
         
         print "Uploading " + fileName
         os.system("./dropbox_uploader.sh -f /home/pi/.dropbox_uploader upload " + fileName + " " + fileName)
         os.system("rm -f " + fileName)
 
         blink()
+        ledOff()
         
         self.wait()
 
 recorder = Recorder()
 blink()
+ledOff()
 recorder.wait()
