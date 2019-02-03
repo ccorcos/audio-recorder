@@ -1,0 +1,9 @@
+[Unit]
+Description=Record Audio
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python /home/pi/audio-recorder/main.py
+
+[Install]
+WantedBy=multi-user.target

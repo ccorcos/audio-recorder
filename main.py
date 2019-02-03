@@ -9,10 +9,26 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(18, GPIO.OUT)
 GPIO.setup(25, GPIO.IN)
 
+def ledOn():
+    GPIO.output(18, False)
+
+def ledOff():
+    GPIO.output(18, True)
+
+def blink():
+    ledOn()
+    time.sleep(0.2)
+    ledOff()
+    time.sleep(0.2)
+    ledOn()
+    time.sleep(0.2)
+    ledOff()
+    time.sleep(0.2)
+
 class Recorder:    
     def wait(self):
         print "Waiting..."
-        GPIO.output(18, True)
+        ledOff()
         while True:
             if GPIO.input(25):
                 time.sleep(0.2)
@@ -30,39 +46,24 @@ class Recorder:
 
         while True:
             if GPIO.input(25):
-                GPIO.output(18, False)
-                time.sleep(0.2)
+                ledOn()
+                time.sleep(0.1)
             else:
                 break
 
         process.kill()
 
-        # Blink off twice.
-        GPIO.output(18, True)
-        time.sleep(0.3)
-        GPIO.output(18, False)
-        time.sleep(0.3)
-        GPIO.output(18, True)
-        time.sleep(0.3)
-        GPIO.output(18, False)
+        
+        blink()
         
         print "Uploading " + fileName
-        homeFolder = "/".join(os.getcwd().split("/")[0:3])
-        os.system("./dropbox_uploader.sh -f " + homeFolder + "/.dropbox_uploader upload " + fileName + " " + fileName)
+        os.system("./dropbox_uploader.sh -f /home/pi/.dropbox_uploader upload " + fileName + " " + fileName)
         os.system("rm -f " + fileName)
 
-        # Blink off thrice.
-        GPIO.output(18, True)
-        time.sleep(0.3)
-        GPIO.output(18, False)
-        time.sleep(0.3)
-        GPIO.output(18, True)
-        time.sleep(0.3)
-        GPIO.output(18, False)
-        time.sleep(0.3)
-        GPIO.output(18, True)
+        blink()
         
         self.wait()
 
 recorder = Recorder()
+blink()
 recorder.wait()
