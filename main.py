@@ -68,7 +68,7 @@ class Recorder:
         ledOn()
         
         print "Uploading " + fileName
-        os.system("./dropbox_uploader.sh -f /home/pi/.dropbox_uploader upload " + fileName + " " + fileName)
+        os.system("./dropbox_uploader.sh -f /home/pi/.dropbox_uploader upload " + fileName + " recordings/" + fileName)
         os.system("rm -f " + fileName)
 
         blink()
