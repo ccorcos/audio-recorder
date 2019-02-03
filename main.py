@@ -16,6 +16,9 @@ class Recorder:
             if GPIO.input(25):
                 time.sleep(0.2)
                 break
+            else:
+                GPIO.output(18, False)
+                time.sleep(0.2)
         self.record()
 
     def record(self):
@@ -28,6 +31,7 @@ class Recorder:
         while True:
             if GPIO.input(25):
                 GPIO.output(18, True)
+                time.sleep(0.2)
             else:
                 break
 
