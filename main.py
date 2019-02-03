@@ -48,6 +48,7 @@ class Recorder:
         
         print "Uploading " + fileName
         os.system("./dropbox_uploader.sh upload " + fileName + " " + fileName)
+        os.system("rm -f " + fileName)
 
         # Blink off thrice.
         GPIO.output(18, True)
