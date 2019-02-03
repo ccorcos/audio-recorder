@@ -1,1 +1,3 @@
-./dropbox_uploader.sh
+.DS_Store
+dropbox_uploader.sh
+log.txt
