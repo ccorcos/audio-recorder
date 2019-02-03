@@ -10,6 +10,12 @@ Clone this repo into your Pi. Install and setup Dropbox:
 ./install.sh
 ```
 
+Setup your timezone!
+
+```sh
+dpkg-reconfigure tzdata
+```
+
 Run the program to test it out
 
 ```sh
