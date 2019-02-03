@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
-NAME="Untitled"
-if [ $1 ]; then 
-    NAME=$1
-fi
-DATE=`date '+%Y-%m-%d-%H:%M:%S'`
-FILE="$DATE-$NAME.mp3"
+set -e;
 
-cd ~/Dropbox/recordings
-echo ~/Dropbox/recordings/$FILE
+DATE=`date '+%Y-%m-%d-%H:%M:%S'`;
+FILE="$DATE.mp3";
 
-sox -d $FILE
+arecord --quiet --device plughw:USB --format cd $FILE;
+./dropbox_uploader.sh upload $FILE $FILE;
